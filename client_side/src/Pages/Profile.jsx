@@ -14,13 +14,16 @@ export const Profile = () => {
     const fetchProfileData = async () => {
       try {
         const token = localStorage.getItem("token");
-        const response = await fetch("http://localhost:5040/api/user/profile", {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await fetch(
+          "https://blog-application-1-si4j.onrender.com/api/user/profile",
+          {
+            method: "GET",
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
         if (!response.ok) {
           throw new Error("Network response was not ok");
         }

@@ -16,9 +16,12 @@ export const EditBlog = () => {
     content: "",
     tags: "",
   });
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    fetch(`http://localhost:5040/api/blog/oneblog/${_id}`)
+    fetch(
+      `https://blog-application-1-si4j.onrender.com/api/blog/oneblog/${_id}`
+    )
       .then((response) => response.json())
       .then((data) => {
         setBlog(data);
@@ -41,7 +44,7 @@ export const EditBlog = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+    setLoading(true);
     try {
       await dispatch(updateBlog(_id, formData));
       toast.success("Blog updated successfully!");
@@ -52,6 +55,8 @@ export const EditBlog = () => {
     } catch (error) {
       toast.error("Failed to update blog. Please try again.");
       console.error(error);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -92,7 +97,9 @@ export const EditBlog = () => {
                 placeholder="e.g., React, JavaScript"
               />
             </div>
-            <Button type="submit">Update Blog</Button>
+            <Button type="submit" disabled={loading}>
+              {loading ? "Updating..." : "Update Blog"}
+            </Button>
           </form>
         </FormContainer>
       </Container>
@@ -119,7 +126,6 @@ const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 `;
 
 const FormContainer = styled.div`

@@ -1,8 +1,8 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { useDispatch,  } from "react-redux";
-import { updateUserProfile } from "../Redux/User/action"; 
-import PropTypes from "prop-types"; 
+import { useDispatch } from "react-redux";
+import { updateUserProfile } from "../Redux/User/action";
+import PropTypes from "prop-types";
 
 const ModalContainer = styled.div`
   position: fixed;
@@ -56,12 +56,12 @@ const EditButton = styled.button`
 const EditModal = ({ isOpen, onClose }) => {
   const dispatch = useDispatch();
 
-  const [name, setName] = useState('');
-  const [email, setEmail] = useState('');
+  const [name, setName] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleUpdate = () => {
-    dispatch(updateUserProfile({ name, email })); 
-    onClose(); 
+    dispatch(updateUserProfile({ name, email }));
+    onClose();
   };
 
   if (!isOpen) return null;
@@ -90,8 +90,8 @@ const EditModal = ({ isOpen, onClose }) => {
 };
 
 EditModal.propTypes = {
-  isOpen: PropTypes.bool.isRequired, 
-  onClose: PropTypes.func.isRequired, 
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
 };
 
 export default EditModal;

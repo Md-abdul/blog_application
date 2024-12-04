@@ -62,7 +62,7 @@ const Quote = styled.p`
   transition: transform 0.5s ease, background-color 0.3s ease;
 
   &:hover {
-    background-color: #e0f7f1;
+    background-color: #3fe2a6;
     transform: scale(1.05);
   }
 `;
@@ -74,10 +74,12 @@ const RightSection = styled.div`
   justify-content: center;
 `;
 
+
 const StyledImage = styled.img`
   max-width: 90%;
   border-radius: 8px;
   transition: transform 0.3s ease;
+  filter: drop-shadow(4px 4px 8px rgba(10, 15, 10, 20)); 
 
   &:hover {
     transform: scale(1.05);

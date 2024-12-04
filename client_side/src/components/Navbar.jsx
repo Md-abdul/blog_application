@@ -28,7 +28,7 @@ export const Navbar = () => {
     toast.success("Logout success! Thanks for visiting");
     setTimeout(() => {
       navigate("/login");
-    }, 4000)
+    }, 2000)
 
   };
 
@@ -81,7 +81,7 @@ export const Navbar = () => {
                   <ProfileDropdown>
                     <Link to={"/profile"} onClick={handleProfileLinkClick}>
                       <ProfileButton>
-                        <FaUserCircle style={{ marginRight: "8px" }} />
+                        <FaUserCircle style={{ marginRight: "8px", textDecoration:'none' }} />
                         Profile
                       </ProfileButton>
                     </Link>

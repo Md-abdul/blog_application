@@ -9,6 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export const Login = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
+  const [loading, setLoading] = useState(false); 
   const [formdata, setFormData] = useState({
     email: "",
     password: "",
@@ -28,13 +29,14 @@ export const Login = () => {
       return;
     }
 
+    setLoading(true); // Start loader
     try {
       let IsAuthincate = await dispatch(signIn(formdata));
 
       if (IsAuthincate) {
         toast.success("Login Successful");
         setTimeout(() => {
-          navigate("/allblogs"); //allblogs
+          navigate("/allblogs"); // allblogs
         }, 4000);
       } else {
         toast.error("Invalid email or password. Please try again.");
@@ -43,6 +45,8 @@ export const Login = () => {
       toast.error(
         `Login failed: ${error.message || "An unexpected error occurred."}`
       );
+    } finally {
+      setLoading(false); // Stop loader
     }
   };
 
@@ -88,7 +92,9 @@ export const Login = () => {
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
           </PasswordToggle>
         </PasswordContainer>
-        <SignupButton type="submit">Sign In</SignupButton>
+        <SignupButton type="submit" disabled={loading}>
+          {loading ? "Loading..." : "Sign In"}
+        </SignupButton>
       </Form>
       <FooterText>
         Already have an account? <SignInLink href="/signup">Sign Up</SignInLink>
@@ -148,7 +154,7 @@ const GoogleSignInButton = styled.button`
   transition: all 0.3s ease;
 
   &:hover {
-    background-color: #f0f0f0; 
+    background-color: #f0f0f0;
   }
 `;
 
@@ -181,8 +187,8 @@ const Input = styled.input`
   font-size: 1rem;
   border: 1px solid #150b0b;
   border-radius: 4px;
-  width: 100%; 
-  box-sizing: border-box; 
+  width: 100%;
+  box-sizing: border-box;
 
   &:focus {
     outline: none;
@@ -212,21 +218,6 @@ const Label = styled.label`
   font-family: "Poppins", sans-serif;
 `;
 
-const SignupButton = styled.button`
-  padding: 0.75rem;
-  font-size: 1rem;
-  color: white;
-  background-color: #2e8b69;
-  border: none;
-  border-radius: 4px;
-  cursor: pointer;
-  width: 100%;
-  transition: background-color 0.3s ease;
-
-  &:hover {
-    background-color: #217053;
-  }
-`;
 
 const FooterText = styled.p`
   font-size: 1rem;
@@ -251,4 +242,25 @@ const FooterInfo = styled.p`
   margin-top: -0.8rem;
   text-align: center;
   line-height: 1.5;
+`;
+
+const SignupButton = styled.button`
+  padding: 0.75rem;
+  font-size: 1rem;
+  color: white;
+  background-color: #2e8b69;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  width: 100%;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #217053;
+  }
+
+  &:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
+  }
 `;

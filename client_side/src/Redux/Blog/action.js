@@ -18,7 +18,9 @@ import {
 export const fetchBlogs = () => async (dispatch) => {
   dispatch({ type: FETCH_BLOGS_REQUEST });
   try {
-    const response = await axios.get("http://localhost:5040/api/blog/allblogs");
+    const response = await axios.get(
+      "https://blog-application-1-si4j.onrender.com/api/blog/allblogs"
+    );
     dispatch({ type: FETCH_BLOGS_SUCCESS, payload: response.data });
     return true;
   } catch (error) {
@@ -41,7 +43,7 @@ export const addBlog = (blogData) => async (dispatch) => {
     };
 
     const response = await axios.post(
-      "http://localhost:5040/api/blog/addblog",
+      "https://blog-application-1-si4j.onrender.com/api/blog/addblog",
       blogData,
       config
     );
@@ -65,7 +67,7 @@ export const getBlog = () => async (dispatch) => {
       },
     };
     const response = await axios.get(
-      "http://localhost:5040/api/blog/myblogs",
+      "https://blog-application-1-si4j.onrender.com/api/blog/myblogs",
       config
     );
     dispatch({ type: BLOG_GET, payload: response.data });
@@ -87,7 +89,7 @@ export const updateBlog = (_id, blogUpdate) => async (dispatch) => {
       },
     };
     const response = await axios.put(
-      `http://localhost:5040/api/blog/updateblog/${_id}`,
+      `https://blog-application-1-si4j.onrender.com/api/blog/updateblog/${_id}`,
       blogUpdate,
       config
     );
@@ -110,7 +112,7 @@ export const deleteBlog = (_id) => async (dispatch) => {
       },
     };
     await axios.delete(
-      `http://localhost:5040/api/blog/deleteblog/${_id}`,
+      `https://blog-application-1-si4j.onrender.com/api/blog/deleteblog/${_id}`,
       config
     );
     dispatch({ type: BLOG_DELETE, payload: _id });

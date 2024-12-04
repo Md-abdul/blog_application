@@ -4,6 +4,7 @@ import { addBlog } from "../Redux/Blog/action";
 import styled from "styled-components";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
 
 const BlogPostForm = () => {
   const dispatch = useDispatch();
@@ -11,7 +12,8 @@ const BlogPostForm = () => {
   const [content, setContent] = useState("");
   const [tags, setTags] = useState([]);
   const [image, setImage] = useState(null);
-
+  const [loading, setLoading] = useState(false); 
+  const navigate = useNavigate();
   const availableTags = ["React", "JavaScript", "CSS", "HTML", "Node.js"];
 
   const handleTagChange = (e) => {
@@ -42,6 +44,8 @@ const BlogPostForm = () => {
       formData.append("image", image);
     }
 
+    setLoading(true);
+
     try {
       const success = await dispatch(addBlog(formData));
       if (success) {
@@ -50,12 +54,18 @@ const BlogPostForm = () => {
         setContent("");
         setTags([]);
         setImage(null);
+
+        setTimeout(() => {
+          navigate('/')
+        }, 3000);
       } else {
         toast.error("Failed to add blog post. Please try again.");
       }
     } catch (error) {
       toast.error("An error occurred. Please try again later.");
       console.error(error);
+    } finally {
+      setLoading(false); 
     }
   };
 
@@ -88,7 +98,9 @@ const BlogPostForm = () => {
           </Select>
           <Label>Image</Label>
           <Input type="file" accept="image/*" onChange={handleImageChange} />
-          <Button type="submit">Submit</Button>
+          <Button type="submit" disabled={loading}>
+            {loading ? "Submitting..." : "Submit"}
+          </Button>
         </form>
       </FormContainer>
       <ToastContainer
@@ -109,7 +121,6 @@ const BlogPostForm = () => {
 
 const Container = styled.div`
   background-color: #f4faff;
-  /* height: 80vh; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -118,7 +129,7 @@ const Container = styled.div`
 const FormContainer = styled.div`
   width: 600px;
   padding: 30px;
-  margin-top: 0.8rem ;
+  margin-top: 0.8rem;
   border-radius: 10px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
   background-color: #fafafa;
@@ -130,7 +141,6 @@ const Title = styled.h2`
   margin-bottom: 20px;
   color: #333;
   font-size: 1.8em;
-
 `;
 
 const Label = styled.label`
@@ -207,6 +217,11 @@ const Button = styled.button`
 
   &:active {
     background-color: #0c1015;
+  }
+
+  &:disabled {
+    background-color: #aaa;
+    cursor: not-allowed;
   }
 `;
 

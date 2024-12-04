@@ -157,7 +157,7 @@ const AddBLogForm = styled.div`
 const Grid = styled.div`
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
 `;
 
 const Card = styled.div`

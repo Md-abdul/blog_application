@@ -24,9 +24,9 @@ export const BlogList = () => {
     navigate(`/singleblog/${_id}`);
   };
 
-  const filteredBlogs = blogs.filter((blog) =>
-    filter === "All" ? true : blog.tags.includes(filter)
-  );
+  const filteredBlogs = blogs
+    .filter((blog) => (filter === "All" ? true : blog.tags.includes(filter)))
+    .reverse(); 
 
   function removeExtraQuotes(str) {
     return typeof str === "string" ? str.replace(/^"(.*)"$/, "$1") : str;
@@ -88,6 +88,12 @@ const BlogContainer = styled.div`
   min-height: 100vh;
 `;
 
+const Grid = styled.div`
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+`;
+
 const WelcomeContainer = styled.div`
   display: flex;
   justify-content: space-between;
@@ -123,14 +129,9 @@ const Dropdown = styled.select`
   cursor: pointer;
 `;
 
-const Grid = styled.div`
-  display: grid;
-  gap: 20px;
-  grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
-`;
 
 const Card = styled.div`
-  background-color: #192335;
+  background-color: #cae4e4;
   padding: 20px;
   border-radius: 30px 0px 30px 0px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -149,7 +150,7 @@ const Card = styled.div`
 const Title = styled.h3`
   font-size: 1.5em;
   margin-bottom: 10px;
-  color: #2e8b69;
+  color: #6d4b40;
 `;
 
 const Image = styled.img`
@@ -162,7 +163,7 @@ const Image = styled.img`
 
 const Content = styled.p`
   font-size: 1em;
-  color: #2e8b69;
+  color: #6d4b40;
   margin-bottom: 10px;
   overflow: hidden;
   white-space: nowrap;
@@ -171,7 +172,7 @@ const Content = styled.p`
 
 const Tags = styled.div`
   font-size: 0.9em;
-  color: #666;
+  color: #0e0c0c;
   margin-bottom: 10px;
 `;
 
@@ -179,7 +180,7 @@ const UserInfo = styled.div`
   display: flex;
   justify-content: space-between;
   font-size: 0.8em;
-  color: #888;
+  color: #060606;
   margin-top: auto;
   align-items: center;
 `;

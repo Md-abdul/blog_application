@@ -6,6 +6,8 @@ import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { register } from "../Redux/User/action";
 
+import { useNavigate } from "react-router-dom";
+
 export const Signup = () => {
   const [passwordVisible, setPasswordVisible] = useState(false);
   const [formData, setFormData] = useState({
@@ -13,7 +15,9 @@ export const Signup = () => {
     email: "",
     password: "",
   });
+  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -27,16 +31,23 @@ export const Signup = () => {
       return;
     }
 
+    setLoading(true);
     try {
       await dispatch(register(formData));
       toast.success("Signup Successful!");
+
+      setTimeout(() => {
+        navigate("/login");
+      }, 3000);
     } catch (error) {
       toast.error(`${error}`);
+    } finally {
+      setLoading(false); // Hide loader
     }
   };
 
   const Googlebtn = () => {
-    toast.error("Please fill you data in Inputs.");
+    toast.error("Please fill in your data in the inputs.");
   };
 
   const togglePasswordVisibility = () => {
@@ -87,8 +98,11 @@ export const Signup = () => {
             {passwordVisible ? <FaEyeSlash /> : <FaEye />}
           </PasswordToggle>
         </PasswordContainer>
-        <SignupButton type="submit">Sign Up</SignupButton>
+        <SignupButton type="submit" disabled={loading}>
+          {loading ? "Loading..." : "Sign Up"}
+        </SignupButton>
       </Form>
+
       <FooterText>
         Already have an account? <SignInLink href="/login">Sign in</SignInLink>
       </FooterText>
@@ -212,10 +226,16 @@ const SignupButton = styled.button`
   border: none;
   border-radius: 4px;
   cursor: pointer;
-  width: 100%; /* Matches Google button and other elements */
+  width: 100%;
+  transition: background-color 0.3s ease;
 
   &:hover {
     background-color: #217053;
+  }
+
+  &:disabled {
+    background-color: #9ca3af;
+    cursor: not-allowed;
   }
 `;
 

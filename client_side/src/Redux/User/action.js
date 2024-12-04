@@ -19,7 +19,7 @@ export const signIn = (userData) => async (dispatch) => {
   dispatch({ type: LOGIN_REQUEST });
   try {
     const response = await axios.post(
-      "http://localhost:5040/api/user/login",
+      "https://blog-application-1-si4j.onrender.com/api/user/login",
       userData
     );
 
@@ -37,11 +37,14 @@ export const signIn = (userData) => async (dispatch) => {
 export const register = (formData) => (dispatch) => {
   dispatch({ type: SIGNUP_REQUEST });
   axios
-    .post("http://localhost:5040/api/user/signup", formData)
-    .then((res) => {
-      const { token } = res.data;
-      dispatch({ type: SIGNUP_SUCCESS, payload: token });
-      localStorage.setItem("token", token);
+    .post(
+      "https://blog-application-1-si4j.onrender.com/api/user/signup",
+      formData
+    )
+    .then(() => {
+      // const { token } = res.data;
+      dispatch({ type: SIGNUP_SUCCESS,});
+      // localStorage.setItem("token", token);
     })
     .catch(() => {
       dispatch({ type: SIGNUP_ERROR });
@@ -59,11 +62,14 @@ export const fetchUserProfile = () => async (dispatch) => {
 
   dispatch({ type: FETCH_PROFILE_REQUEST });
   try {
-    const response = await axios.get("http://localhost:5040/api/user/profile", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
+    const response = await axios.get(
+      "https://blog-application-1-si4j.onrender.com/api/user/profile",
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
     const userData = response.data;
     dispatch({ type: FETCH_PROFILE_SUCCESS, payload: userData });
     return userData;
@@ -81,7 +87,7 @@ export const updateUserProfile = (profileData) => async (dispatch) => {
   dispatch({ type: UPDATE_PROFILE_REQUEST });
   try {
     const response = await axios.put(
-      "http://localhost:5040/api/user/profile",
+      "https://blog-application-1-si4j.onrender.com/api/user/profile",
       profileData,
       {
         headers: {

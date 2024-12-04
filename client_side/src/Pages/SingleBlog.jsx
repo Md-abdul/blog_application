@@ -13,7 +13,7 @@ export const SingleBlog = () => {
     try {
       setLoading(true);
       const res = await axios.get(
-        `http://localhost:5040/api/blog/oneblog/${_id}`
+        `https://blog-application-1-si4j.onrender.com/api/blog/oneblog/${_id}`
       );
       setBlogData(res.data);
       setLoading(false);
@@ -96,5 +96,3 @@ const BlogContentText = styled.p`
   font-family: "Poppins", sans-serif;
   text-align: left;
 `;
-
-
