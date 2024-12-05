@@ -150,17 +150,17 @@ A full-stack blogging platform built using the MERN stack, where users can read,
 
 
 
-## 🙌 Contributions 😊
+## 🙌 Contributions 
 
 Contributions, issues, and feature requests are welcome! Feel free to check the issues page.     
 
 
-## 📄 License 😊
+## 📄 License 
 
 This project is licensed under the MIT License. See the LICENSE file for details.
 
 
-## 📧 Contact 😊
+## 📧 Contact 
 
 For any inquiries, contact me at mdabdulq62@gmail.com.
 
